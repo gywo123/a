@@ -1,0 +1,33 @@
+
+<!Doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <title>None</title>
+  </head>
+  <body>
+    <h2>현재 위치</h2>
+    {{latitude}}
+    {{longitude}}
+    <div id="map" style="height: 400px; width: 100%;"></div>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}"></script>
+    <script>
+      function initMap() {
+        let lat2 = '{{ latitude | safe }}';
+        let lon2 = '{{ longitude | safe }}';
+        console.log(lat2);
+        console.log(lon2);
+        var currentLocation = { lat: lat2, lng: lon2 };
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 15,
+          center: currentLocation
+        });
+        var marker = new google.maps.Marker({
+          position: currentLocation,
+          map: map
+        });
+      }
+      google.maps.event.addDomListener(window, 'load', initMap);
+    </script>
+  </body>
+</html>
